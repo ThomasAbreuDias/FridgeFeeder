@@ -1,14 +1,22 @@
 <template>
-  <view class="container">
-  	<Statusbar color="#DECDF5"/>
-  	<Header title="Fridge Feeder"/>
-  	<Liste v-for="liste in listes":key="liste.id" :title="liste.title"/>
+	<view class="container">
+		<Statusbar color="#DECDF5"/>
+		<Header title="Fridge Feeder"/>
+		<ScrollView orientation="horizontal">
+			<Liste class="container" v-for="liste in listes":key="liste.id" :title="liste.title">
+				<touchable-opacity class ="rmv_btn" :on-press="() => rmvListItem(liste.id)">
+					<text class="btn_txt">Supprimer liste</text>
+				</touchable-opacity>
+			</Liste>
+			<view>
+				<text-input class="input" v-model="newListText"/>
+				<touchable-opacity class ="add_btn" :on-press="newListe">
+					<text class="btn_txt">Nouvelle liste</text>
+				</touchable-opacity>  	
 
-  	<text-input class="input" v-model="newListText"/>
-  	<touchable-opacity class ="add_btn" :on-press="newList">
-  		<text class="btn_txt">Nouvelle liste</text>
-  	</touchable-opacity>
-  </view>
+			</view>
+		</ScrollView>
+	</view>
 </template>
 
 <script>
@@ -37,12 +45,16 @@ export default {
 	    Liste
 	},
 	methods: {
-		newList() {
+		newListe() {
 			this.listes.push({
 				id: this.listes.length+1,
 				title: this.newListText,
 			});
+			alert(this.title);
 			this.newListText = '';
+		},
+				rmvListe(id) {
+			this.listes = this.listes.filter(liste => liste.id !== id );
 		}
 	}
 };
@@ -66,7 +78,7 @@ export default {
 		font-weight: 700;
 	}
 	.input {
-		background-color: #F8F1FF;
+		background-color: #FFE1FF;
 		height: 30px;
 		font-size: 18px;
 	}

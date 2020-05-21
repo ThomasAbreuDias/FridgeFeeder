@@ -48,13 +48,13 @@ export default {
 			this.newListItemText = '';
 		},
 		toggleDone(id) {
-			this.listitems = this.listitems.map(todo => {
-				if (todo.id == id) todo.done = !todo.done;
-				return todo;
+			this.listitems = this.listitems.map(listitem => {
+				if (listitem.id == id) listitem.done = !listitem.done;
+				return listitem;
 			})
 		},
 		rmvListItem(id) {
-			this.listitems = this.listitems.filter(todo => todo.id !== id );
+			this.listitems = this.listitems.filter(listitem => listitem.id !== id );
 		}
 	},
 	props: ['title']
