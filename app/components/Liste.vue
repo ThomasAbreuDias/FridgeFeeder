@@ -1,42 +1,51 @@
 <template>
-	<AbsoluteLayout>
-      <RadListView ref="listView"
-                   for="item in liste_items"
-                   swipeActions="true"
-                   @itemSwipeProgressStarted="onSwipeStarted"
-                   >
-        <v-template>
-          <StackLayout class="item" orientation="vertical" >
-            <Label :text="item.name" class="nameLabel"></Label>
-          </StackLayout>
-        </v-template>
+	<Page>
+		<ActionBar title="Fridge Feeder">
+	    	<Label :text="title"></Label>
+	    </ActionBar>
+		<AbsoluteLayout>
+	      <RadListView ref="listView"
+	                   for="item in liste_items"
+	                   swipeActions="true"
+	                   @itemSwipeProgressStarted="onSwipeStarted"
+	                   @itemTap="onItemTap"
+	                   >
+	        <v-template>
+	          <StackLayout class="item" orientation="vertical" >
 
-        <v-template name="itemswipe">
-            <StackLayout id="delete-view" class="swipe-item right"
-                         orientation="horizontal" @tap="rmvItemClick" backgroundColor="#ac495e">
-                <Label class="swipe-label">
-	          		<FormattedString>
-	                    <Span class="fas" text.decode="&#xf2ed; "/>
-	                </FormattedString>
-	            </Label>
-              
-            </StackLayout>
-        </v-template>
-      </RadListView>
-      		<AbsoluteLayout marginTop="87%" marginLeft="75%" >
-      		<Button class="btn" backgroundColor="#DECDF5" text="Ajouter" @tap="prompt" >
-      			<FormattedString >
-					<Span class="fas add-label" text.decode="&#xf067;" />
-  				</FormattedString>
-      		</Button>
-      	</AbsoluteLayout>
-	</AbsoluteLayout>
+	            <Label :text="item.name" class="nameLabel buy" v-if="item.buy"/>
+	            <Label :text="item.name" class="nameLabel" v-else />
+	          </StackLayout>
+	        </v-template>
+
+	        <v-template name="itemswipe">
+	            <StackLayout id="delete-view" class="swipe-item right"
+	                         orientation="horizontal" @tap="rmvItemClick" backgroundColor="#ac495e">
+	                <Label class="swipe-label">
+		          		<FormattedString>
+		                    <Span class="fas" text.decode="&#xf2ed; "/>
+		                </FormattedString>
+		            </Label>
+	              
+	            </StackLayout>
+	        </v-template>
+	      </RadListView>
+	      		<AbsoluteLayout marginTop="87%" marginLeft="75%" >
+	      		<Button class="btn" backgroundColor="#DECDF5" text="Ajouter" @tap="prompt" >
+	      			<FormattedString >
+						<Span class="fas add-label" text.decode="&#xf067;" />
+	  				</FormattedString>
+	      		</Button>
+	      	</AbsoluteLayout>
+		</AbsoluteLayout>
+	</Page>
 </template>
 
 <script>
 	import { ObservableArray } from 'tns-core-modules/data/observable-array';
 	const dialogs = require('tns-core-modules/ui/dialogs');
 	export default {
+		props: ['title'],
 		data() {
 			return {
 				liste_items: new ObservableArray([
@@ -55,7 +64,21 @@
 		},
 		methods: {
 			onItemTap(ev) {
-				console.log(ev.item.id);
+				this.liste_items = this.liste_items.map(listitem => {
+				if (listitem.id == ev.item.id) listitem.buy = !listitem.buy;
+				return listitem;
+			})
+/*				let tmp = {
+					id: ev.item.id,
+					name: ev.item.name,
+					buy: !ev.item.buy,
+				};
+				this.liste_items.setItem(ev.item.id, tmp);
+				console.log(
+					'id :'+ev.item.id,
+					'name :'+ev.item.name,
+					'buy :'+ev.item.buy
+					);*/
 			},
 			onSwipeStarted ({ data, object }) {
 				console.log(`Swipe started`);
@@ -83,7 +106,7 @@
 				}).then(result => {
 					if(`${result.result}` == 'true'){
 						this.liste_items.push({
-							id:this.liste_items.length+1,
+							id:this.liste_items.length,
 							name:`${result.text}`,
 							buy:false,
 						})
@@ -115,5 +138,8 @@
 .add-label {
 	font-size: 20;
 	color: #534D56;
+}
+.buy {
+	text-decoration: line-through;
 }
 </style>

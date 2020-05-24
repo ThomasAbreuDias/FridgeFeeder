@@ -1,10 +1,5 @@
 <template>
-    <Page>
-        <ActionBar title="Fridge Feeder">
-            <Label text="Fridge Feeder"></Label>
-        </ActionBar>
-        <Liste/>
-    </Page>
+    <Liste :title="newListText"/>
 </template>
 
 <script>
@@ -14,6 +9,11 @@
             Liste,
 
         },
+        data () {
+            return {
+                newListText: 'Liste',
+            }
+        }
     };
 </script>
 
