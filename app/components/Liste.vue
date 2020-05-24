@@ -77,10 +77,11 @@
 				  message: "Ajouter votre article:",
 				  okButtonText: "OK",
 				  cancelButtonText: "Annuler",
+				  cancelable: true,
 				  defaultText: "S.Pellegrino",
-				  inputType: dialogs.inputType.email
+				  inputType: dialogs.inputType.text
 				}).then(result => {
-					if(`${result.result}`){
+					if(`${result.result}` == 'true'){
 						this.liste_items.push({
 							id:this.liste_items.length+1,
 							name:`${result.text}`,
