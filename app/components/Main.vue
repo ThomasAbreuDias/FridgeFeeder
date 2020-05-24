@@ -1,18 +1,16 @@
 <template>
-    <Liste :title="newListText"/>
+    <Page actionBarHidden="true">
+        <Frame id="liste-page">
+            <ListePage/>
+        </Frame>
+    </Page>
 </template>
 
 <script>
-    import Liste from './Liste';
+    import ListePage from './ListePage';
     export default {
         components: {
-            Liste,
-
-        },
-        data () {
-            return {
-                newListText: 'Liste',
-            }
+            ListePage,
         }
     };
 </script>

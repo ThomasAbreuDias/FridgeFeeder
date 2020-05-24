@@ -1,6 +1,6 @@
 <template>
 	<Page>
-		<ActionBar title="Fridge Feeder">
+		<ActionBar  title="Fridge Feeder" backgroundColor="#FE9D95">
 	    	<Label :text="title"></Label>
 	    </ActionBar>
 		<AbsoluteLayout>
@@ -31,7 +31,7 @@
 	        </v-template>
 	      </RadListView>
 	      		<AbsoluteLayout marginTop="87%" marginLeft="75%" >
-	      		<Button class="btn" backgroundColor="#DECDF5" text="Ajouter" @tap="prompt" >
+	      		<Button class="btn" backgroundColor="#FE9D95" text="Ajouter" @tap="prompt" >
 	      			<FormattedString >
 						<Span class="fas add-label" text.decode="&#xf067;" />
 	  				</FormattedString>
@@ -44,22 +44,13 @@
 <script>
 	import { ObservableArray } from 'tns-core-modules/data/observable-array';
 	const dialogs = require('tns-core-modules/ui/dialogs');
+	const l_i = require('../data').liste_items;
+	
 	export default {
 		props: ['title'],
 		data() {
 			return {
-				liste_items: new ObservableArray([
-				{
-					id: 0,
-					name: 'Lait',
-					buy: false,
-				},
-				{
-					id: 1,
-					name: 'Tomates',
-					buy: false,
-				}
-				])
+				liste_items: new ObservableArray(l_i),
 			};
 		},
 		methods: {
@@ -68,17 +59,6 @@
 				if (listitem.id == ev.item.id) listitem.buy = !listitem.buy;
 				return listitem;
 			})
-/*				let tmp = {
-					id: ev.item.id,
-					name: ev.item.name,
-					buy: !ev.item.buy,
-				};
-				this.liste_items.setItem(ev.item.id, tmp);
-				console.log(
-					'id :'+ev.item.id,
-					'name :'+ev.item.name,
-					'buy :'+ev.item.buy
-					);*/
 			},
 			onSwipeStarted ({ data, object }) {
 				console.log(`Swipe started`);
