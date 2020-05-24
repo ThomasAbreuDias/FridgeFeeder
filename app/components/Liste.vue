@@ -1,29 +1,36 @@
 <template>
-	<GridLayout orientation="vertical" rows="auto, *">
+	<AbsoluteLayout>
       <RadListView ref="listView"
                    for="item in liste_items"
                    swipeActions="true"
                    @itemSwipeProgressStarted="onSwipeStarted"
                    >
         <v-template>
-          <StackLayout class="item" orientation="vertical" backgroundColor="#534D56">
+          <StackLayout class="item" orientation="vertical" >
             <Label :text="item.name" class="nameLabel"></Label>
           </StackLayout>
         </v-template>
 
         <v-template name="itemswipe">
-          <GridLayout columns="*" backgroundColor="#ac495e">
-            <StackLayout id="delete-view" col="2" class="swipe-item right"
-                         orientation="horizontal" @tap="rmvItemClick">
-              <Label class="swipe-label" text="delete"/>
+            <StackLayout id="delete-view" class="swipe-item right"
+                         orientation="horizontal" @tap="rmvItemClick" backgroundColor="#ac495e">
+                <Label class="swipe-label">
+	          		<FormattedString>
+	                    <Span class="fas" text.decode="&#xf2ed; "/>
+	                </FormattedString>
+	            </Label>
+              
             </StackLayout>
-          </GridLayout>
         </v-template>
       </RadListView>
-      <Button col="2" class="btn btn-primary" text="Ajouter" @tap="prompt" />
-    </GridLayout>
-
-
+      		<AbsoluteLayout marginTop="87%" marginLeft="75%" >
+      		<Button class="btn" backgroundColor="#DECDF5" text="Ajouter" @tap="prompt" >
+      			<FormattedString >
+					<Span class="fas add-label" text.decode="&#xf067;" />
+  				</FormattedString>
+      		</Button>
+      	</AbsoluteLayout>
+	</AbsoluteLayout>
 </template>
 
 <script>
@@ -90,9 +97,22 @@
 
 <style>
 .swipe-label {
-	float: right;
+	padding-left: 330;
+	font-size: 23;
 }
 .item {
 	font-size: 18px;
+	background-color:#534D56;
+}
+.btn {
+	width: 60;
+	height: 60;
+	border-radius: 28;
+	vertical-align: center;
+	
+}
+.add-label {
+	font-size: 20;
+	color: #534D56;
 }
 </style>
