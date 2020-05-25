@@ -1,5 +1,5 @@
 <template>
-	<Page>
+	<Page >
 		<ActionBar  title="Fridge Feeder" backgroundColor="#FE9D95">
 	    	<Label :text="title"></Label>
 	    </ActionBar>
