@@ -76,7 +76,7 @@
  			 },
  			 prompt() {
  			 	prompt({
-				  title: "Un nouvelle article ?",
+				  title: "Un nouvel article ?",
 				  message: "Ajouter votre article:",
 				  okButtonText: "OK",
 				  cancelButtonText: "Annuler",
